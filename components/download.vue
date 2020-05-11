@@ -67,11 +67,9 @@ export default {
 
 <style>
 .download {
-  margin: 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 button {
   margin: 0;
