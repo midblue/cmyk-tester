@@ -1,0 +1,28 @@
+{
+  "name": "cmyk-tester",
+  "version": "1.0.0",
+  "description": "My tiptop Nuxt.js project",
+  "author": "Jasper Stephenson",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate",
+    "golive": "npm run generate && cp -rf ./dist/* ../personalsite2018/docs/cmyk-tester && cp -rf ./dist/* ../personalsite2018/static/cmyk-tester && cd ../personalsite2018 && git add ./docs/cmyk-tester && git commit -m \"Updated CMYK Tester\" && git push && cd ../cmyk-tester"
+  },
+  "dependencies": {
+    "@nuxtjs/google-analytics": "^2.2.3",
+    "color-convert": "^2.0.1",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "node-sass": "^4.14.1",
+    "nuxt": "^2.12.2",
+    "sass-loader": "^8.0.2",
+    "vue-color": "^2.7.1",
+    "vue-range-component": "^1.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
