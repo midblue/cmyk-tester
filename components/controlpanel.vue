@@ -2,8 +2,8 @@
   <div class="controlpanel">
     <coloreditor v-if="colorEditorOpen" @close="colorEditorOpen = false" />
     <div class="top">
-      <uploadbutton />
-      <button class="secondary" @click="colorEditorOpen = true">
+      <uploadbutton buttonType="secondary"></uploadbutton>
+      <button class="tertiary" @click="colorEditorOpen = true">
         Edit Palette
       </button>
     </div>
@@ -18,22 +18,22 @@
         <client-only>
           <div class="pickers">
             <div class="picker">
-              <span>C channel</span>
+              <span>C Channel</span>
               <picker v-model="changeCTo" :palette="colors"></picker>
               <slider v-model="alphaC" :color="changeCTo.hex" />
             </div>
             <div class="picker">
-              <span>M channel</span>
+              <span>M Channel</span>
               <picker v-model="changeMTo" :palette="colors"></picker>
               <slider v-model="alphaM" :color="changeMTo.hex" />
             </div>
             <div class="picker">
-              <span>Y channel</span>
+              <span>Y Channel</span>
               <picker v-model="changeYTo" :palette="colors"></picker>
               <slider v-model="alphaY" :color="changeYTo.hex" />
             </div>
             <div class="picker">
-              <span>K channel</span>
+              <span>K Channel</span>
               <picker v-model="changeKTo" :palette="colors"></picker>
               <slider v-model="alphaK" :color="changeKTo.hex" />
             </div>
@@ -126,11 +126,12 @@ export default {
   },
   mounted() {
     const savedColors = JSON.parse(get('colors'))
-    console.log('Loaded saved palette.', savedColors)
-    if (savedColors && Array.isArray(savedColors))
+    if (savedColors && Array.isArray(savedColors)) {
+      console.log('Loaded saved palette.', savedColors)
       this.$store.commit('set', {
         colors: savedColors,
       })
+    }
   },
   methods: {
     async go() {

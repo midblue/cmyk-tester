@@ -5,6 +5,12 @@
       <div><uploadbutton /></div>
       <div>Or, drag an image in to start.</div>
     </div>
+    <button
+      class="secondary"
+      @click="$store.commit('set', { aboutOpen: true })"
+    >
+      About
+    </button>
   </div>
 </template>
 
@@ -49,6 +55,7 @@ export default {
   justify-content: center;
   border: 2px dashed rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.2);
+  margin-bottom: 60px;
 }
 
 h1 {
@@ -59,5 +66,9 @@ h1 {
 
 div {
   margin: 15px 0;
+}
+
+button {
+  max-width: 200px;
 }
 </style>

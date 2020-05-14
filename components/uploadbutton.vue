@@ -1,6 +1,8 @@
 <template>
   <div class="passthrough">
-    <label for="file-upload" class="button"><slot>Pick Image</slot></label>
+    <label for="file-upload" class="button" :class="buttonType"
+      ><slot>Pick Image</slot></label
+    >
     <input
       id="file-upload"
       type="file"
@@ -13,6 +15,7 @@
 
 <script>
 export default {
+  props: { buttonType: { default: '' } },
   data() {
     return {}
   },
@@ -36,8 +39,10 @@ export default {
           return alert('Please pick a valid image file.')
         this.$store.commit('set', { filename: fileList[0].name })
         const reader = new FileReader()
-        reader.onload = async e =>
+        reader.onload = async e => {
+          console.log('loaded file.')
           this.$store.commit('set', { file: e.target.result })
+        }
         reader.readAsDataURL(fileList[0])
       }
     },

@@ -18,7 +18,7 @@
           <img :src="output[2]" />
           <img :src="output[3]" />
         </div>
-        <download class="topcenter" />
+        <download class="bottomcenter" />
       </div>
     </transition>
   </div>
@@ -47,8 +47,9 @@ export default {
 <style lang="scss">
 .rightpane {
   width: 100%;
-  height: 100%;
-  padding-top: 5vh;
+  height: 100vh;
+  overflow: hidden;
+  padding-bottom: 5vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -115,9 +116,9 @@ export default {
   width: 25%;
 }
 
-.topcenter {
+.bottomcenter {
   position: absolute;
-  top: 0;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;

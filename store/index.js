@@ -1,4 +1,5 @@
 export const state = () => ({
+  aboutOpen: false,
   file: null,
   filename: 'file',
   colors: [

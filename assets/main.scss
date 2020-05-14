@@ -11,7 +11,7 @@ button,
 .button {
   display: block;
   text-align: center;
-  padding: 15px 25px;
+  padding: 15px 20px;
   font-size: 1rem;
   font-weight: bold;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -26,16 +26,16 @@ button,
     opacity: 0.7;
   }
 
-  // &.secondary {
-  //   background: #555;
-  // }
+  &.secondary {
+    background: #444;
+  }
 
-  // &.tertiary {
-  //   background: #333;
-  // }
+  &.tertiary {
+    background: linear-gradient(to right, rgb(0, 154, 226), rgb(196, 0, 196));
+  }
 
   &.bright {
-    background: cyan;
+    background: rgb(0, 161, 224);
   }
 
   &:hover {

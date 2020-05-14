@@ -1,6 +1,6 @@
 <template>
   <div class="download">
-    <button @click="download" :disabled="isLoading" class="tertiary">
+    <button @click="download" :disabled="isLoading">
       <!-- <div v-if="isLoading" class="loader"></div> -->
       {{
         isLoading

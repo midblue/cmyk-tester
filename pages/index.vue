@@ -7,6 +7,7 @@
     @dragleave.prevent="isDragging = false"
     @dragend.prevent="isDragging = false"
   >
+    <about />
     <transition name="fade">
       <intro v-if="!file" />
     </transition>
@@ -20,8 +21,14 @@ const { split, preload } = require('~/assets/splitIntoCMYK')
 import intro from '~/components/intro'
 import controlpanel from '~/components/controlpanel'
 import result from '~/components/result'
+import about from '~/components/about'
 
 export default {
+  head() {
+    return {
+      title: `CMYK Tester`,
+    }
+  },
   data() {
     return {
       isLoading: false,
@@ -29,7 +36,7 @@ export default {
       outputChannels: [],
     }
   },
-  components: { intro, controlpanel, result },
+  components: { intro, controlpanel, result, about },
   watch: {},
   mounted() {},
   computed: {
