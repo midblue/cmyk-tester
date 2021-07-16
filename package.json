@@ -12,17 +12,18 @@
     "golive": "npm run generate && cp -rf ./dist/* ../personalsite2018/docs/cmyk-tester && cp -rf ./dist/* ../personalsite2018/static/cmyk-tester && cd ../personalsite2018 && git add ./docs/cmyk-tester && git commit -m \"Updated CMYK Tester\" && git push && cd ../cmyk-tester"
   },
   "dependencies": {
-    "@nuxtjs/google-analytics": "^2.2.3",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "color-convert": "^2.0.1",
-    "cross-env": "^5.2.0",
-    "express": "^4.16.4",
-    "node-sass": "^4.14.1",
-    "nuxt": "^2.12.2",
-    "sass-loader": "^8.0.2",
-    "vue-color": "^2.7.1",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.1",
+    "jimp-compact": "^0.16.1",
+    "nuxt": "^2.15.7",
+    "sass": "^1.35.2",
+    "sass-loader": "^10.1.1",
+    "vue-color": "^2.8.1",
     "vue-range-component": "^1.0.3"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9"
+    "nodemon": "^2.0.12"
   }
 }

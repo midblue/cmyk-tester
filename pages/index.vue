@@ -12,12 +12,15 @@
       <intro v-if="!file" />
     </transition>
     <controlpanel @go="go" />
-    <result :isLoading="isLoading" :output="outputChannels" />
+    <result
+      :isLoading="isLoading"
+      :output="outputChannels"
+    />
   </div>
 </template>
 
 <script>
-const { split, preload } = require('~/assets/splitIntoCMYK')
+const { split } = require('~/assets/splitIntoCMYK')
 import intro from '~/components/intro'
 import controlpanel from '~/components/controlpanel'
 import result from '~/components/result'
@@ -49,7 +52,8 @@ export default {
   },
   methods: {
     async go(params) {
-      if (this.isLoading) return console.log('skipping double')
+      if (this.isLoading)
+        return console.log('skipping double')
 
       if (!this.file) {
         console.log('clearing')
@@ -67,9 +71,16 @@ export default {
           params.changeKTo.hex,
         ],
         this.alphas,
+        [
+          params.subtractKC,
+          params.subtractKM,
+          params.subtractKY,
+        ],
         500,
       )
-      this.outputChannels = newFiles.map((n, i) => n || this.outputChannels[i])
+      this.outputChannels = newFiles.map(
+        (n, i) => n || this.outputChannels[i],
+      )
       setTimeout(() => (this.isLoading = false), 100)
     },
     fileDrop(e) {
@@ -78,10 +89,14 @@ export default {
       if (fileList && fileList[0]) {
         if (!isImage(fileList[0].name))
           return alert('Please pick a valid image file.')
-        this.$store.commit('set', { filename: fileList[0].name })
+        this.$store.commit('set', {
+          filename: fileList[0].name,
+        })
         const reader = new FileReader()
-        reader.onload = async e =>
-          this.$store.commit('set', { file: e.target.result })
+        reader.onload = async (e) =>
+          this.$store.commit('set', {
+            file: e.target.result,
+          })
         reader.readAsDataURL(fileList[0])
       }
     },

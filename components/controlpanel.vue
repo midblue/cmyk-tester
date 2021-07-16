@@ -1,9 +1,15 @@
 <template>
   <div class="controlpanel">
-    <coloreditor v-if="colorEditorOpen" @close="colorEditorOpen = false" />
+    <coloreditor
+      v-if="colorEditorOpen"
+      @close="colorEditorOpen = false"
+    />
     <div class="top">
       <uploadbutton buttonType="secondary"></uploadbutton>
-      <button class="tertiary" @click="colorEditorOpen = true">
+      <button
+        class="tertiary"
+        @click="colorEditorOpen = true"
+      >
         Edit Palette
       </button>
     </div>
@@ -12,30 +18,80 @@
         <div class="previewpane">
           <img ref="preview" class="preview" :src="file" />
           <div>
-            Source Image<span class="removeimage" @click="removeImage">✖</span>
+            Source Image<span
+              class="removeimage"
+              @click="removeImage"
+              >✖</span
+            >
           </div>
         </div>
         <client-only>
           <div class="pickers">
             <div class="picker">
               <span>C Channel</span>
-              <picker v-model="changeCTo" :palette="colors"></picker>
-              <slider v-model="alphaC" :color="changeCTo.hex" />
+              <picker
+                v-model="changeCTo"
+                :palette="colors"
+              ></picker>
+              <slider
+                v-model="alphaC"
+                :color="changeCTo.hex"
+                label="Opacity"
+              />
+              <slider
+                v-model="subtractKC"
+                :initial="0"
+                :color="changeKTo.hex"
+                label="Subtract K"
+              />
             </div>
             <div class="picker">
               <span>M Channel</span>
-              <picker v-model="changeMTo" :palette="colors"></picker>
-              <slider v-model="alphaM" :color="changeMTo.hex" />
+              <picker
+                v-model="changeMTo"
+                :palette="colors"
+              ></picker>
+              <slider
+                v-model="alphaM"
+                :color="changeMTo.hex"
+                label="Opacity"
+              />
+              <slider
+                v-model="subtractKM"
+                :initial="0"
+                :color="changeKTo.hex"
+                label="Subtract K"
+              />
             </div>
             <div class="picker">
               <span>Y Channel</span>
-              <picker v-model="changeYTo" :palette="colors"></picker>
-              <slider v-model="alphaY" :color="changeYTo.hex" />
+              <picker
+                v-model="changeYTo"
+                :palette="colors"
+              ></picker>
+              <slider
+                v-model="alphaY"
+                :color="changeYTo.hex"
+                label="Opacity"
+              />
+              <slider
+                v-model="subtractKY"
+                :initial="0"
+                :color="changeKTo.hex"
+                label="Subtract K"
+              />
             </div>
             <div class="picker">
               <span>K Channel</span>
-              <picker v-model="changeKTo" :palette="colors"></picker>
-              <slider v-model="alphaK" :color="changeKTo.hex" />
+              <picker
+                v-model="changeKTo"
+                :palette="colors"
+              ></picker>
+              <slider
+                v-model="alphaK"
+                :color="changeKTo.hex"
+                label="Opacity"
+              />
             </div>
           </div>
         </client-only>
@@ -59,17 +115,34 @@ export default {
     return {
       isLoading: false,
       colorEditorOpen: false,
-      changeCTo: { hex: '#' + convert.cmyk.hex(100, 0, 0, 0) },
-      changeMTo: { hex: '#' + convert.cmyk.hex(0, 100, 0, 0) },
-      changeYTo: { hex: '#' + convert.cmyk.hex(0, 0, 100, 0) },
-      changeKTo: { hex: '#' + convert.cmyk.hex(0, 0, 0, 100) },
+      changeCTo: {
+        hex: '#' + convert.cmyk.hex(100, 0, 0, 0),
+      },
+      changeMTo: {
+        hex: '#' + convert.cmyk.hex(0, 100, 0, 0),
+      },
+      changeYTo: {
+        hex: '#' + convert.cmyk.hex(0, 0, 100, 0),
+      },
+      changeKTo: {
+        hex: '#' + convert.cmyk.hex(0, 0, 0, 100),
+      },
       alphaC: 1,
       alphaM: 1,
       alphaY: 1,
       alphaK: 1,
+      subtractKC: 0,
+      subtractKM: 0,
+      subtractKY: 0,
     }
   },
-  components: { picker, slider, download, uploadbutton, coloreditor },
+  components: {
+    picker,
+    slider,
+    download,
+    uploadbutton,
+    coloreditor,
+  },
   watch: {
     file() {
       this.go()
@@ -88,25 +161,54 @@ export default {
     },
     alphaC() {
       this.$store.commit('set', {
-        alphas: [this.alphaC, this.alphas[1], this.alphas[2], this.alphas[3]],
+        alphas: [
+          this.alphaC,
+          this.alphas[1],
+          this.alphas[2],
+          this.alphas[3],
+        ],
       })
     },
     alphaM() {
       this.$store.commit('set', {
-        alphas: [this.alphas[0], this.alphaM, this.alphas[2], this.alphas[3]],
+        alphas: [
+          this.alphas[0],
+          this.alphaM,
+          this.alphas[2],
+          this.alphas[3],
+        ],
       })
     },
     alphaY() {
       this.$store.commit('set', {
-        alphas: [this.alphas[0], this.alphas[1], this.alphaY, this.alphas[3]],
+        alphas: [
+          this.alphas[0],
+          this.alphas[1],
+          this.alphaY,
+          this.alphas[3],
+        ],
       })
     },
     alphaK() {
       this.$store.commit('set', {
-        alphas: [this.alphas[0], this.alphas[1], this.alphas[2], this.alphaK],
+        alphas: [
+          this.alphas[0],
+          this.alphas[1],
+          this.alphas[2],
+          this.alphaK,
+        ],
       })
     },
     alphas() {
+      this.go()
+    },
+    subtractKC() {
+      this.go()
+    },
+    subtractKM() {
+      this.go()
+    },
+    subtractKY() {
       this.go()
     },
   },
@@ -118,7 +220,9 @@ export default {
       return this.$store.state.filename
     },
     colors() {
-      return this.$store.state.colors.map(c => '#' + convert.cmyk.hex(...c))
+      return this.$store.state.colors.map(
+        (c) => '#' + convert.cmyk.hex(...c),
+      )
     },
     alphas() {
       return this.$store.state.alphas
@@ -142,10 +246,14 @@ export default {
       if (fileList && fileList[0]) {
         if (!isImage(fileList[0].name))
           return alert('Please pick a valid image file.')
-        this.$store.commit('set', { filename: fileList[0].name })
+        this.$store.commit('set', {
+          filename: fileList[0].name,
+        })
         const reader = new FileReader()
-        reader.onload = async e =>
-          this.$store.commit('set', { file: e.target.result })
+        reader.onload = async (e) =>
+          this.$store.commit('set', {
+            file: e.target.result,
+          })
         reader.readAsDataURL(fileList[0])
       }
     },
@@ -224,6 +332,6 @@ function isImage(filename) {
   margin-bottom: 100px;
 }
 .picker {
-  padding: 30px 0 0 0;
+  padding: 30px 0 10px 0;
 }
 </style>

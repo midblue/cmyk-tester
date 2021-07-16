@@ -5,13 +5,22 @@
       :min="min"
       :max="max"
       :step="step"
-      v-on:mouseup="$emit('input', parseFloat($event.target.value))"
+      v-on:mouseup="
+        $emit('input', parseFloat($event.target.value))
+      "
       v-model="value"
       :style="{
-        background: `linear-gradient(to right, transparent, ${color})`,
+        background: `linear-gradient(to right, transparent, ${Array.from(
+          { length: max },
+        )
+          .map((el) => color)
+          .join(', ')})`,
       }"
     />
-    <div>{{ value * 100 }}%</div>
+    <div class="label">
+      {{ label ? label + ': ' : ''
+      }}{{ Math.round(value * 100) }}%
+    </div>
   </div>
 </template>
 
@@ -19,16 +28,21 @@
 export default {
   props: {
     min: { default: 0 },
-    max: { default: 1 },
-    step: { default: 0.1 },
+    max: { default: 2.5 },
+    initial: {},
+    step: { default: 0.05 },
     color: { default: '#222' },
+    label: {},
   },
   data() {
     return { value: 1 }
   },
   components: {},
   watch: {},
-  mounted() {},
+  mounted() {
+    if (this.initial !== undefined)
+      this.value = this.initial
+  },
   methods: {},
 }
 </script>
@@ -36,21 +50,20 @@ export default {
 <style>
 .slider {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .slider div {
-  margin-left: 10px;
-  font-size: 1em;
-  font-weight: bold;
+  margin-left: 7px;
   position: relative;
-  top: -1px;
+  top: 4px;
 }
 
 input[type='range'] {
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
   -webkit-appearance: none;
-  margin: 15px 0;
+  margin: 15px 0 0px 0;
   width: 100%;
 }
 input[type='range']:focus {
@@ -85,5 +98,12 @@ input[type='range']::-moz-range-thumb {
   border-radius: 5px;
   background: transparent;
   cursor: pointer;
+}
+
+.label {
+  font-weight: bold;
+  font-size: 0.9em;
+  width: 8.8em;
+  flex-shrink: 0;
 }
 </style>
