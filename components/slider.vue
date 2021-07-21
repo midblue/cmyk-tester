@@ -28,7 +28,7 @@
 export default {
   props: {
     min: { default: 0 },
-    max: { default: 2.5 },
+    max: { default: 3 },
     initial: {},
     step: { default: 0.05 },
     color: { default: '#222' },
@@ -47,10 +47,13 @@ export default {
     manualEntry() {
       try {
         let res = (
-          prompt('Enter an exact value.') || ''
-        ).replace(/[^\d.]/g, '')
+          prompt(
+            'Enter an exact value (Can go above "maximum"!).',
+          ) || ''
+        ).replace(/[^-\d.]/g, '')
         res = parseFloat(res)
         if (isNaN(res)) return
+        if (res < 0) res = 0
         res /= 100
         this.value = res
         this.$emit('input', res)

@@ -101,12 +101,18 @@ async function split(
             //     destinationAlpha[colorIndex],
             //   1,
             // ) // min because destinationAlpha can go over 1.0
-            const curvesScale =
+            const flatUnder1AndCurvesOver1Scale =
               cmyk[colorIndex] === 0
                 ? 0
+                : destinationAlpha[colorIndex] <= 1
+                ? cmyk[colorIndex] *
+                  destinationAlpha[colorIndex] // under 1 it just scales linearly down
                 : cmyk[colorIndex] **
-                  (1 / destinationAlpha[colorIndex]) // creates a nice curve from 0-1
-            const outputLevel = parseInt(curvesScale * 255) // base alpha multiplied by manual modifier
+                  (1 / destinationAlpha[colorIndex]) // over 1 it uses a nice hyperbolic curve
+
+            const outputLevel = parseInt(
+              flatUnder1AndCurvesOver1Scale * 255,
+            ) // base alpha multiplied by manual modifier
 
             // assign the new color (may contain elements of R, G, and B) to the pixel, with the proper K subtraction
             this.bitmap.data[idx] = destinationRGB[0]
