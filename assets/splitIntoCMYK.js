@@ -102,13 +102,17 @@ async function split(
             //   1,
             // ) // min because destinationAlpha can go over 1.0
             const flatUnder1AndCurvesOver1Scale =
-              cmyk[colorIndex] === 0
-                ? 0
-                : destinationAlpha[colorIndex] <= 1
-                ? cmyk[colorIndex] *
-                  destinationAlpha[colorIndex] // under 1 it just scales linearly down
-                : cmyk[colorIndex] **
-                  (1 / destinationAlpha[colorIndex]) // over 1 it uses a nice hyperbolic curve
+              // cmyk[colorIndex] === 0
+              //   ? 0
+              // : destinationAlpha[colorIndex] <= 1
+              // ?
+              Math.min(
+                1,
+                cmyk[colorIndex] *
+                  destinationAlpha[colorIndex],
+              ) // under 1 it just scales linearly down
+            // : cmyk[colorIndex] **
+            //   (1 / destinationAlpha[colorIndex]) // over 1 it uses a nice hyperbolic curve
 
             const outputLevel = parseInt(
               flatUnder1AndCurvesOver1Scale * 255,
