@@ -7,16 +7,38 @@
     <transition name="fade">
       <div v-if="output[0]">
         <div class="output">
-          <img :src="output[0]" />
-          <img :src="output[1]" />
-          <img :src="output[2]" />
-          <img :src="output[3]" />
+          <img
+            v-if="previewChannel !== null"
+            :src="output[previewChannel]"
+          />
+          <template v-else>
+            <img :src="output[0]" />
+            <img :src="output[1]" />
+            <img :src="output[2]" />
+            <img :src="output[3]" />
+          </template>
         </div>
         <div class="bycolor">
-          <img :src="output[0]" />
-          <img :src="output[1]" />
-          <img :src="output[2]" />
-          <img :src="output[3]" />
+          <img
+            :src="output[0]"
+            @mouseenter="previewChannel = 0"
+            @mouseleave="previewChannel = null"
+          />
+          <img
+            :src="output[1]"
+            @mouseenter="previewChannel = 1"
+            @mouseleave="previewChannel = null"
+          />
+          <img
+            :src="output[2]"
+            @mouseenter="previewChannel = 2"
+            @mouseleave="previewChannel = null"
+          />
+          <img
+            :src="output[3]"
+            @mouseenter="previewChannel = 3"
+            @mouseleave="previewChannel = null"
+          />
         </div>
         <download class="bottomcenter" />
       </div>
@@ -30,7 +52,7 @@ import download from '~/components/download'
 export default {
   props: { isLoading: {}, output: { default: () => [] } },
   data() {
-    return {}
+    return { previewChannel: null }
   },
   components: { download },
   watch: {},

@@ -17,7 +17,7 @@
           .join(', ')})`,
       }"
     />
-    <div class="label">
+    <div class="label" @click="manualEntry">
       {{ label ? label + ': ' : ''
       }}{{ Math.round(value * 100) }}%
     </div>
@@ -43,7 +43,20 @@ export default {
     if (this.initial !== undefined)
       this.value = this.initial
   },
-  methods: {},
+  methods: {
+    manualEntry() {
+      try {
+        let res = (
+          prompt('Enter an exact value.') || ''
+        ).replace(/[^\d.]/g, '')
+        res = parseFloat(res)
+        if (isNaN(res)) return
+        res /= 100
+        this.value = res
+        this.$emit('input', res)
+      } catch (e) {}
+    },
+  },
 }
 </script>
 
@@ -105,5 +118,6 @@ input[type='range']::-moz-range-thumb {
   font-size: 0.9em;
   width: 8.8em;
   flex-shrink: 0;
+  cursor: pointer;
 }
 </style>
