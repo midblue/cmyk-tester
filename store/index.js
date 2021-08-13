@@ -24,6 +24,7 @@ export const state = () => ({
     [24, 94, 1, 21, 'Wine'],
   ],
   alphas: [1, 1, 1, 1],
+  subtractKs: [0, 0, 0],
 })
 
 export const mutations = {

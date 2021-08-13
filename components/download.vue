@@ -36,6 +36,9 @@ export default {
     alphas() {
       return this.$store.state.alphas
     },
+    subtractKs() {
+      return this.$store.state.subtractKs
+    },
   },
   methods: {
     async download() {
@@ -49,11 +52,7 @@ export default {
           this.targetColor,
         ],
         this.alphas,
-        [
-          params.subtractKC,
-          params.subtractKM,
-          params.subtractKY,
-        ],
+        this.subtractKs,
         this.maxWH,
       )
       for (let i in newFiles) {

@@ -203,12 +203,33 @@ export default {
       this.go()
     },
     subtractKC() {
+      this.$store.commit('set', {
+        subtractKs: [
+          this.subtractKC,
+          this.subtractKs[1],
+          this.subtractKs[2],
+        ],
+      })
       this.go()
     },
     subtractKM() {
+      this.$store.commit('set', {
+        subtractKs: [
+          this.subtractKs[0],
+          this.subtractKM,
+          this.subtractKs[2],
+        ],
+      })
       this.go()
     },
     subtractKY() {
+      this.$store.commit('set', {
+        subtractKs: [
+          this.subtractKs[0],
+          this.subtractKs[1],
+          this.subtractKY,
+        ],
+      })
       this.go()
     },
   },
@@ -226,6 +247,9 @@ export default {
     },
     alphas() {
       return this.$store.state.alphas
+    },
+    subtractKs() {
+      return this.$store.state.subtractKs
     },
   },
   mounted() {
