@@ -49,12 +49,19 @@ export default {
           this.targetColor,
         ],
         this.alphas,
+        [
+          params.subtractKC,
+          params.subtractKM,
+          params.subtractKY,
+        ],
         this.maxWH,
       )
       for (let i in newFiles) {
         let a = document.createElement('a')
         a.href = newFiles[i]
-        a.download = `${this.filename} ${['C', 'M', 'Y', 'K'][i]}.png`
+        a.download = `${this.filename} ${
+          ['C', 'M', 'Y', 'K'][i]
+        }.png`
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)
